@@ -12,7 +12,7 @@ def hvlcs(values, A, B):
     m = len(B)
 
     # Initialize DP table with zeros
-    dp = [[0] * (m + 1) for i in range(n + 1)]
+    dp = [[0] * (m + 1) for _ in range(n + 1)]
 
     # Fill table bottom-up (from the end of the strings to the beginning)
     for i in range(n - 1, -1, -1):  # Iterate backwards through A
