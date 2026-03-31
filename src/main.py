@@ -1,10 +1,6 @@
 import sys
 from parser import parse_input
-
-
-# placeholder solver until the real algorithm is added
-def solve_hvlcs(values, a, b):
-    return 0, ""
+from hvlcs import hvlcs
 
 
 # handle command line input and program output
@@ -18,7 +14,7 @@ def main():
     # parse input and run the solver
     try:
         values, a, b = parse_input(file_path)
-        max_value, subsequence = solve_hvlcs(values, a, b)
+        max_value, subsequence = hvlcs(values, a, b)
 
         print(max_value)
         print(subsequence)
