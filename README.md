@@ -156,10 +156,47 @@ The observed runtime growth appears approximately quadratic with respect to the 
 ### Question 3: Big-Oh
 
 #### Pseudocode
-[add pseudocode for computing the HVLCS here]
+```text
+HVLCS(A, B, value):
+    n = length(A)
+    m = length(B)
+
+    create table dp[0..n][0..m]
+
+    for i = 0 to n:
+        dp[i][m] = 0
+
+    for j = 0 to m:
+        dp[n][j] = 0
+
+    for i = n - 1 downto 0:
+        for j = m - 1 downto 0:
+            skipA = dp[i + 1][j]
+            skipB = dp[i][j + 1]
+            dp[i][j] = max(skipA, skipB)
+
+            if A[i] == B[j]:
+                takeMatch = value(A[i]) + dp[i + 1][j + 1]
+                dp[i][j] = max(dp[i][j], takeMatch)
+
+    return dp[0][0]
+```
 
 #### Runtime
-[add runtime analysis here]
+Let $n = |A|$ and $m = |B|$.
+
+The algorithm builds one dynamic programming table with $(n + 1)(m + 1)$ entries. Initializing the last row takes $O(m)$ time, and initializing the last column takes $O(n)$ time. After that, the nested loops visit each remaining table entry exactly once.
+
+For each cell $dp[i][j]$, the algorithm only does a constant amount of work:
+- one or two table lookups
+- one comparison for `max`
+- possibly one additional value lookup and another `max` when $A[i] = B[j]$
+
+So each cell is filled in $O(1)$ time. Since there are $n \cdot m$ interior cells, the total time to fill the table is $O(nm)$.
+
+Therefore, the overall runtime is:
+$$O(n + m + nm) = O(nm)$$
 
 #### Conclusion
-[state the final runtime here]
+The runtime of the dynamic programming algorithm for computing the HVLCS value is **$O(nm)$**, where $n$ is the length of string $A$ and $m$ is the length of string $B$.
+
