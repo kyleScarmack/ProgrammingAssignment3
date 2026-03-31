@@ -96,13 +96,20 @@ Then compare the printed result to `data/outputs/example.out`.
 ### Question 1: Empirical Comparison
 
 #### Setup
-[add 10 nontrivial input files, runtime measurements, and graph here]
+We generated 10 nontrivial input files with string lengths ranging from 25×25 to 750×750. Each file contains randomly generated strings over a fixed alphabet with assigned character values.
+
+For each input file, we measured the runtime of the HVLCS algorithm using time.perf_counter() as a timer. Each test was repeated three times, and the minimum runtime was recorded to reduce noise.
+
+Below is the runtime graph:
+
+![HVLCS Runtime Graph](results/hvlcs_runtime_vs_input.png)
 
 #### Results
-[add runtime table or graph summary here]
+The runtime increases as the input size grows. Smaller inputs run very quickly, while larger inputs (e.g., 500×500 and above) take significantly longer. The graph shows a clear upward trend as both string lengths increase.
+
 
 #### Brief Comment
-[add comparison commentary here]
+The observed runtime growth appears approximately quadratic with respect to the input sizes, which is consistent with the expected time complexity of the dynamic programming solution, O(n · m), where n and m are the lengths of the two input strings A and B, respectively. As the lengths of the strings increase, the size of the DP table also increases, leading to higher computation time. These results confirm that the algorithm scales as expected for larger inputs.
 
 ### Question 2: Recurrence Equation
 
