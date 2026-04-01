@@ -142,16 +142,22 @@ The observed runtime growth appears approximately quadratic with respect to the 
 ### Question 2: Recurrence Equation
 
 #### Claim
-[add recurrence statement here]
+Let A = a_1, a_2, ..., a_n and B = b_1, b_2, ..., b_m. The maximum value of a common subsequence can be computed using the recurrence:
+
+OPT(i, j) =
+- 0, if i = 0 or j = 0
+- max{OPT(i−1, j), OPT(i, j−1), v(a_i) + OPT(i−1, j−1)}, if a_i = b_j 
+- max{OPT(i−1, j), OPT(i, j−1)}, if a_i ≠ b_j 
 
 #### Setup
-[define subproblem and base cases here]
+Define OPT(i, j) as the maximum total value of a common subsequence of the first i characters of A and the first j characters of B. The base cases are OPT(i, j) = 0 when i = 0 or j = 0, since an empty string has no common subsequence.
 
 #### Proof
-[explain why the recurrence is correct here]
+At each pair of indices (i, j), we consider the last characters a_i and b_j. If a_i = b_j, then we may include this character in the subsequence and add its value v(a_i), while also considering skipping one of the characters. Thus, we take the maximum of these three possibilities. If a_i ≠ b_j, then the characters cannot both be part of the subsequence, so we must skip one of them, taking the maximum of OPT(i−1, j) and OPT(i, j−1). Since every optimal solution must make one of these choices, the recurrence correctly captures all possibilities.
+
 
 #### Conclusion
-[state why the recurrence solves the problem here]
+This recurrence computes the maximum value of a common subsequence of A and B. By filling the DP table using this recurrence, we obtain the optimal value OPT(n, m), and an optimal subsequence can be reconstructed by backtracking.
 
 ### Question 3: Big-Oh
 
